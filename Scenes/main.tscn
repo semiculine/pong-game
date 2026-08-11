@@ -1,0 +1,182 @@
+[gd_scene format=3 uid="uid://b821myv7hqira"]
+
+[ext_resource type="Texture2D" uid="uid://dd2t5dx2h6t4f" path="res://Assets/simple-ping-pong-2Dgame-assets/arts/Board.png" id="1_jjvhh"]
+[ext_resource type="Script" uid="uid://bfsfqxrbgjml6" path="res://Scripts/left_paddle.gd" id="2_344ge"]
+[ext_resource type="Texture2D" uid="uid://dy6c0kcgltdkk" path="res://Assets/simple-ping-pong-2Dgame-assets/arts/Player.png" id="2_kry3j"]
+[ext_resource type="Script" uid="uid://4v53qb4pxs06" path="res://Scripts/right_paddle.gd" id="3_6bp64"]
+[ext_resource type="Texture2D" uid="uid://cndkhe8ycy0gr" path="res://Assets/simple-ping-pong-2Dgame-assets/arts/Computer.png" id="3_21xkr"]
+[ext_resource type="Texture2D" uid="uid://c8jo8qjoal53p" path="res://Assets/simple-ping-pong-2Dgame-assets/arts/ScoreBar.png" id="4_6bp64"]
+[ext_resource type="Texture2D" uid="uid://cf8chv2cvd2wq" path="res://Assets/simple-ping-pong-2Dgame-assets/arts/Ball.png" id="4_kry3j"]
+[ext_resource type="Script" uid="uid://od633kvhiokf" path="res://Scripts/ball.gd" id="5_6bp64"]
+[ext_resource type="Texture2D" uid="uid://cdpmse0fb8g3l" path="res://Assets/simple-ping-pong-2Dgame-assets/arts/BallMotion.png" id="8_6iyac"]
+[ext_resource type="Script" uid="uid://86b485npc8fe" path="res://Scripts/scores.gd" id="9_d1ilt"]
+[ext_resource type="Script" uid="uid://b4u1kjdwd43bi" path="res://Scripts/goal.gd" id="9_hptm8"]
+[ext_resource type="Script" uid="uid://cyjwbyrgj8rp4" path="res://time.gd" id="11_d1ilt"]
+[ext_resource type="FontFile" uid="uid://cssiv2d3ac2x8" path="res://Assets/simple-ping-pong-2Dgame-assets/fonts/Teko-SemiBold.ttf" id="13_jkdf5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r6fwp"]
+size = Vector2(20, 121)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i74y8"]
+size = Vector2(18, 122)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_i74y8"]
+radius = 15.033297
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_pq88j"]
+a = Vector2(1160, 64)
+b = Vector2(-8, 64)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_i74y8"]
+a = Vector2(0, 656)
+b = Vector2(0, 64)
+
+[sub_resource type="LabelSettings" id="LabelSettings_d1ilt"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_6iyac"]
+
+[node name="Main" type="Node2D" unique_id=121588471]
+metadata/_edit_horizontal_guides_ = [-344.0, -341.0]
+
+[node name="Board" type="Sprite2D" parent="." unique_id=847476961]
+position = Vector2(577, 344.00003)
+scale = Vector2(1.4763093, 1.5186813)
+texture = ExtResource("1_jjvhh")
+
+[node name="LeftPaddle" type="CharacterBody2D" parent="." unique_id=33389726 groups=["Paddles"]]
+position = Vector2(72.00003, 344)
+script = ExtResource("2_344ge")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftPaddle" unique_id=1788664796]
+shape = SubResource("RectangleShape2D_r6fwp")
+
+[node name="Computer" type="Sprite2D" parent="LeftPaddle/CollisionShape2D" unique_id=432861910]
+scale = Vector2(1.0882335, 1)
+texture = ExtResource("3_21xkr")
+
+[node name="RightPaddle" type="CharacterBody2D" parent="." unique_id=756827850 groups=["Paddles"]]
+position = Vector2(1080, 352)
+script = ExtResource("3_6bp64")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightPaddle" unique_id=1617835692]
+shape = SubResource("RectangleShape2D_i74y8")
+
+[node name="Player" type="Sprite2D" parent="RightPaddle/CollisionShape2D" unique_id=1220467032]
+texture = ExtResource("2_kry3j")
+
+[node name="Ball!" type="CharacterBody2D" parent="." unique_id=572055846 groups=["Ball"]]
+position = Vector2(577, 344)
+floor_stop_on_slope = false
+script = ExtResource("5_6bp64")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ball!" unique_id=365182423]
+shape = SubResource("CircleShape2D_i74y8")
+
+[node name="BallMotion" type="Sprite2D" parent="Ball!/CollisionShape2D" unique_id=1889017073]
+scale = Vector2(1, 1.004)
+texture = ExtResource("8_6iyac")
+centered = false
+offset = Vector2(-49, 2)
+
+[node name="Ball" type="Sprite2D" parent="Ball!/CollisionShape2D" unique_id=1223806965]
+scale = Vector2(0.99999994, 0.99999994)
+texture = ExtResource("4_kry3j")
+
+[node name="InvisibleWalls" type="Node2D" parent="." unique_id=1965331922]
+
+[node name="TopWall" type="StaticBody2D" parent="InvisibleWalls" unique_id=548287001 groups=["InvisibleWalls"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InvisibleWalls/TopWall" unique_id=2030268847]
+shape = SubResource("SegmentShape2D_pq88j")
+
+[node name="BottomWall" type="StaticBody2D" parent="InvisibleWalls" unique_id=1448551669 groups=["InvisibleWalls"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InvisibleWalls/BottomWall" unique_id=1117261736]
+position = Vector2(0, 586)
+shape = SubResource("SegmentShape2D_pq88j")
+
+[node name="GoalAreas" type="Node2D" parent="." unique_id=1416693187]
+
+[node name="LeftGoal" type="Area2D" parent="GoalAreas" unique_id=817890872 groups=["GoalAreas"]]
+script = ExtResource("9_hptm8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GoalAreas/LeftGoal" unique_id=1842832557]
+shape = SubResource("SegmentShape2D_i74y8")
+
+[node name="RightGoal" type="Area2D" parent="GoalAreas" unique_id=2136410366 groups=["GoalAreas"]]
+script = ExtResource("9_hptm8")
+is_left_goal = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GoalAreas/RightGoal" unique_id=647968468]
+position = Vector2(1152, 0)
+shape = SubResource("SegmentShape2D_i74y8")
+
+[node name="ScoreTracker" type="Control" parent="." unique_id=43571545]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 910.0
+offset_top = 37.80001
+offset_right = 910.0
+offset_bottom = 37.80001
+scale = Vector2(1.4325513, 1.7127659)
+script = ExtResource("9_d1ilt")
+
+[node name="Player Score" type="Sprite2D" parent="ScoreTracker" unique_id=1991336048]
+position = Vector2(-0.6980591, -4.1015453)
+scale = Vector2(1, 0.82546586)
+texture = ExtResource("4_6bp64")
+flip_h = true
+
+[node name="PlayerScore" type="Label" parent="ScoreTracker/Player Score" unique_id=1532981815]
+unique_name_in_owner = true
+offset_left = -144.49745
+offset_top = -22.474434
+offset_right = 170.32549
+offset_bottom = 23.49998
+theme_override_fonts/font = ExtResource("13_jkdf5")
+theme_override_font_sizes/font_size = 45
+text = "
+"
+label_settings = SubResource("LabelSettings_d1ilt")
+vertical_alignment = 1
+
+[node name="Computer Score" type="Sprite2D" parent="ScoreTracker" unique_id=1654775999]
+position = Vector2(-465.07928, -4.116145)
+scale = Vector2(1, 0.82608694)
+texture = ExtResource("4_6bp64")
+
+[node name="ComputerScore" type="Label" parent="ScoreTracker/Computer Score" unique_id=1718150268]
+unique_name_in_owner = true
+offset_left = -196.67712
+offset_top = -21.733097
+offset_right = 143.97382
+offset_bottom = 23.499989
+theme_override_fonts/font = ExtResource("13_jkdf5")
+theme_override_font_sizes/font_size = 45
+label_settings = SubResource("LabelSettings_6iyac")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Time" type="Label" parent="." unique_id=1581148926]
+unique_name_in_owner = true
+offset_left = 488.0
+offset_top = 7.0
+offset_right = 665.0
+offset_bottom = 60.0
+theme_override_constants/line_spacing = 1
+theme_override_fonts/font = ExtResource("13_jkdf5")
+theme_override_font_sizes/font_size = 20
+horizontal_alignment = 1
+justification_flags = 35
+script = ExtResource("11_d1ilt")
+
+[node name="Timer" type="Timer" parent="Time" unique_id=1653171778]
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=1202376506]
+
+[connection signal="point_scored" from="GoalAreas/LeftGoal" to="ScoreTracker" method="_on_goal_point_scored"]
+[connection signal="point_scored" from="GoalAreas/LeftGoal" to="ScoreTracker/Player Score/PlayerScore" method="_on_goal_point_scored"]
+[connection signal="point_scored" from="GoalAreas/RightGoal" to="ScoreTracker" method="_on_right_goal_point_scored"]
+[connection signal="point_scored" from="GoalAreas/RightGoal" to="ScoreTracker" method="_on_goal_point_scored"]
+[connection signal="point_scored" from="GoalAreas/RightGoal" to="ScoreTracker/Computer Score/ComputerScore" method="_on_goal_point_scored"]
+[connection signal="timeout" from="Time/Timer" to="Time" method="_on_timer_timeout"]
