@@ -13,7 +13,7 @@
 [ext_resource type="Script" uid="uid://b4u1kjdwd43bi" path="res://Scripts/goal.gd" id="9_hptm8"]
 [ext_resource type="AudioStream" uid="uid://r6nxsfe5e0oa" path="res://Sound FX Starter Pack Vol. 1/UI & Menus/Hover Over.wav" id="9_jkdf5"]
 [ext_resource type="AudioStream" uid="uid://cuawb1305v6j3" path="res://Sound FX Starter Pack Vol. 1/UI & Menus/Select.wav" id="9_wsu2k"]
-[ext_resource type="Script" uid="uid://cyjwbyrgj8rp4" path="res://time.gd" id="11_d1ilt"]
+[ext_resource type="Script" uid="uid://cyjwbyrgj8rp4" path="res://Scripts/time.gd" id="11_d1ilt"]
 [ext_resource type="FontFile" uid="uid://cssiv2d3ac2x8" path="res://Assets/simple-ping-pong-2Dgame-assets/fonts/Teko-SemiBold.ttf" id="13_jkdf5"]
 [ext_resource type="AudioStream" uid="uid://dhqcu0i1cwq77" path="res://Sound FX Starter Pack Vol. 1/UI & Menus/Achievement.wav" id="14_wsu2k"]
 
