@@ -1,4 +1,4 @@
-# scores gd script testing 
+# scores gd script testing 2
 extends Control
 
 # Configure on-screen UI
