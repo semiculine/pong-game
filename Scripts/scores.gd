@@ -1,3 +1,4 @@
+# scores gd script testing 
 extends Control
 
 # Configure on-screen UI
@@ -19,7 +20,7 @@ var winning_point: int = 11
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	player_score = 0
-	computer_score = 10
+	computer_score = 0
 	update_score()
 	
 	# Hide Game over overlay on start & connect button signal
