@@ -1,4 +1,4 @@
-class_name Ball # registers "Ball" as a global type in Godot
+#class_name Ball # registers "Ball" as a global type in Godot
 extends CharacterBody2D
 
 @export var base_speed : float = 400.0 # Starting speed for new round
@@ -11,6 +11,7 @@ var total_collisions : int  # persisten collision tracker
 
 @export var initial_velocity = Vector2(base_speed, 0)
 
+@onready var bounce_sound : AudioStreamPlayer2D = $BounceSound
 @onready var ball_motion = $CollisionShape2D/BallMotion
 @onready var start_position : Vector2 = global_position
 
@@ -28,8 +29,6 @@ func reset_ball(direction_x : float = 1.0) -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 # COLLISION / TRAJECTORY CASES FOR BALL
 func _physics_process(delta: float) -> void:
-	# Increase ball speed every X collisions
-	var collision_count = get_slide_collision_count()
 	print("Ball's velocity & angle: ", velocity.x, ", ", velocity.y, ", ", velocity.angle())
 	
 	# Ball trajectory trail - line interpolation
@@ -43,14 +42,14 @@ func _physics_process(delta: float) -> void:
 		# Offsets sprite slightly backward opposite to move direction, then lerp pulls it back
 		var lag_target = -velocity.normalized() * 5.0 # 10px drag distance
 		ball_motion.position = ball_motion.position.lerp(lag_target, follow_speed * delta)
-	
 
-	#ball_motion.position = ball_motion.position.lerp(Vector2.ZERO, follow_speed * delta)
-	
 	
 	# ASSUME THAT IF THE BALL IS COLLIDING WITH SURFACE AT AN ANGLE AND...
 	var collision = move_and_collide(velocity * delta)
 	if collision:
+		# Play bounce sound on any impact
+		bounce_sound.play()
+		
 		var collider = collision.get_collider()
 		var hit_position = global_position.y - collider.global_position.y
 		

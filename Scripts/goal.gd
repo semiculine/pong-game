@@ -13,7 +13,3 @@ func _on_body_entered(body: Node2D) -> void:
 		print("Goal!")
 		point_scored.emit(is_left_goal) # Merely emit
 		#reset_ball(body)
-
-#func reset_ball(ball: Node2D) -> void:
-#	ball.global_position = Vector2(577,344) # Center coordinates of board
-#	ball.velocity = ball.initial_velocity

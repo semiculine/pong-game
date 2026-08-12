@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 @export var SPEED : float = 400.0
-@export var lead_time : float = 0.2
+@export var lead_time : float = -0.2
 @export var top_limit_y : float = 65
 @export var bottom_limit_y : float = 650.0
 @onready var fixed_x := global_position.x

@@ -11,8 +11,11 @@
 [ext_resource type="Texture2D" uid="uid://cdpmse0fb8g3l" path="res://Assets/simple-ping-pong-2Dgame-assets/arts/BallMotion.png" id="8_6iyac"]
 [ext_resource type="Script" uid="uid://86b485npc8fe" path="res://Scripts/scores.gd" id="9_d1ilt"]
 [ext_resource type="Script" uid="uid://b4u1kjdwd43bi" path="res://Scripts/goal.gd" id="9_hptm8"]
+[ext_resource type="AudioStream" uid="uid://r6nxsfe5e0oa" path="res://Sound FX Starter Pack Vol. 1/UI & Menus/Hover Over.wav" id="9_jkdf5"]
+[ext_resource type="AudioStream" uid="uid://cuawb1305v6j3" path="res://Sound FX Starter Pack Vol. 1/UI & Menus/Select.wav" id="9_wsu2k"]
 [ext_resource type="Script" uid="uid://cyjwbyrgj8rp4" path="res://time.gd" id="11_d1ilt"]
 [ext_resource type="FontFile" uid="uid://cssiv2d3ac2x8" path="res://Assets/simple-ping-pong-2Dgame-assets/fonts/Teko-SemiBold.ttf" id="13_jkdf5"]
+[ext_resource type="AudioStream" uid="uid://dhqcu0i1cwq77" path="res://Sound FX Starter Pack Vol. 1/UI & Menus/Achievement.wav" id="14_wsu2k"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r6fwp"]
 size = Vector2(20, 121)
@@ -31,9 +34,15 @@ b = Vector2(-8, 64)
 a = Vector2(0, 656)
 b = Vector2(0, 64)
 
-[sub_resource type="LabelSettings" id="LabelSettings_d1ilt"]
+[sub_resource type="LabelSettings" id="LabelSettings_h1bgf"]
+line_spacing = 0.0
+font_size = 35
+font_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_6iyac"]
+line_spacing = 0.0
+font_size = 35
+font_color = Color(0, 0, 0, 1)
 
 [node name="Main" type="Node2D" unique_id=121588471]
 metadata/_edit_horizontal_guides_ = [-344.0, -341.0]
@@ -82,9 +91,13 @@ offset = Vector2(-49, 2)
 scale = Vector2(0.99999994, 0.99999994)
 texture = ExtResource("4_kry3j")
 
+[node name="BounceSound" type="AudioStreamPlayer2D" parent="Ball!" unique_id=1455947123]
+stream = ExtResource("9_jkdf5")
+
 [node name="InvisibleWalls" type="Node2D" parent="." unique_id=1965331922]
 
 [node name="TopWall" type="StaticBody2D" parent="InvisibleWalls" unique_id=548287001 groups=["InvisibleWalls"]]
+position = Vector2(0, 23)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InvisibleWalls/TopWall" unique_id=2030268847]
 shape = SubResource("SegmentShape2D_pq88j")
@@ -111,7 +124,26 @@ is_left_goal = false
 position = Vector2(1152, 0)
 shape = SubResource("SegmentShape2D_i74y8")
 
-[node name="ScoreTracker" type="Control" parent="." unique_id=43571545]
+[node name="UI" type="CanvasLayer" parent="." unique_id=1202376506]
+
+[node name="Time" type="Label" parent="UI" unique_id=1581148926]
+unique_name_in_owner = true
+offset_left = 488.0
+offset_right = 665.0
+offset_bottom = 88.0
+theme_override_constants/line_spacing = 3
+theme_override_fonts/font = ExtResource("13_jkdf5")
+theme_override_font_sizes/font_size = 25
+text = "t i m e"
+horizontal_alignment = 1
+vertical_alignment = 1
+justification_flags = 35
+uppercase = true
+script = ExtResource("11_d1ilt")
+
+[node name="Timer" type="Timer" parent="UI/Time" unique_id=1653171778]
+
+[node name="ScoreTracker" type="Control" parent="UI" unique_id=43571545]
 layout_mode = 3
 anchors_preset = 0
 offset_left = 910.0
@@ -121,62 +153,104 @@ offset_bottom = 37.80001
 scale = Vector2(1.4325513, 1.7127659)
 script = ExtResource("9_d1ilt")
 
-[node name="Player Score" type="Sprite2D" parent="ScoreTracker" unique_id=1991336048]
-position = Vector2(-0.6980591, -4.1015453)
-scale = Vector2(1, 0.82546586)
+[node name="GameOverPanel" type="Control" parent="UI/ScoreTracker" unique_id=1575561428]
+anchors_preset = 0
+offset_left = -95.633606
+offset_top = 0.11676407
+offset_right = 53.052185
+offset_bottom = 40.0
+pivot_offset = Vector2(73.9939, 19.267082)
+
+[node name="WinnerText" type="Label" parent="UI/ScoreTracker/GameOverPanel" unique_id=726670954]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -2.089
+anchor_top = 2.811
+anchor_right = 0.286
+anchor_bottom = 4.946
+offset_left = -2.8222046
+offset_top = -18.695625
+offset_right = -2.7349243
+offset_bottom = -16.846329
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(176.60803, 43.788834)
+theme_override_fonts/font = ExtResource("13_jkdf5")
+theme_override_font_sizes/font_size = 60
+text = "---------- WINS !"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PlayAgainButton" type="Button" parent="UI/ScoreTracker/GameOverPanel" unique_id=1793833035]
+layout_mode = 0
+offset_left = -256.18628
+offset_top = 190.3355
+offset_right = -17.774628
+offset_bottom = 279.78143
+scale = Vector2(0.65252715, 0.5374834)
+pivot_offset = Vector2(119.66696, -44.749573)
+theme_override_colors/font_disabled_color = Color(0.875, 0.875, 0.875, 0.5)
+theme_override_fonts/font = ExtResource("13_jkdf5")
+theme_override_font_sizes/font_size = 45
+text = "PLAY AGAIN?"
+
+[node name="Player Score" type="Sprite2D" parent="UI/ScoreTracker" unique_id=1991336048]
+position = Vector2(-0.6980591, 2.9046583)
+scale = Vector2(1, 1.1236022)
 texture = ExtResource("4_6bp64")
 flip_h = true
 
-[node name="PlayerScore" type="Label" parent="ScoreTracker/Player Score" unique_id=1532981815]
+[node name="PlayerScore" type="Label" parent="UI/ScoreTracker/Player Score" unique_id=1532981815]
 unique_name_in_owner = true
-offset_left = -144.49745
-offset_top = -22.474434
-offset_right = 170.32549
-offset_bottom = 23.49998
+anchors_preset = -1
+anchor_left = -0.004094188
+anchor_top = 0.4311776
+anchor_right = 0.040551506
+anchor_bottom = 1.0056456
+offset_left = -102.614105
+offset_top = -43.0119
+offset_right = -90.614105
+offset_bottom = -19.011902
+size_flags_horizontal = 3
+size_flags_vertical = 3
 theme_override_fonts/font = ExtResource("13_jkdf5")
-theme_override_font_sizes/font_size = 45
-text = "
-"
-label_settings = SubResource("LabelSettings_d1ilt")
+theme_override_font_sizes/font_size = 48
+text = "10"
+label_settings = SubResource("LabelSettings_h1bgf")
 vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
 
-[node name="Computer Score" type="Sprite2D" parent="ScoreTracker" unique_id=1654775999]
-position = Vector2(-465.07928, -4.116145)
-scale = Vector2(1, 0.82608694)
+[node name="Computer Score" type="Sprite2D" parent="UI/ScoreTracker" unique_id=1654775999]
+position = Vector2(-465.07928, 2.8900614)
+scale = Vector2(1, 1.1242235)
 texture = ExtResource("4_6bp64")
 
-[node name="ComputerScore" type="Label" parent="ScoreTracker/Computer Score" unique_id=1718150268]
+[node name="ComputerScore" type="Label" parent="UI/ScoreTracker/Computer Score" unique_id=1718150268]
 unique_name_in_owner = true
-offset_left = -196.67712
-offset_top = -21.733097
-offset_right = 143.97382
-offset_bottom = 23.499989
+offset_left = 88.65546
+offset_top = -22.201664
+offset_right = 114.65546
+offset_bottom = 28.798336
 theme_override_fonts/font = ExtResource("13_jkdf5")
-theme_override_font_sizes/font_size = 45
+theme_override_font_sizes/font_size = 16
+text = "10"
 label_settings = SubResource("LabelSettings_6iyac")
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="Time" type="Label" parent="." unique_id=1581148926]
-unique_name_in_owner = true
-offset_left = 488.0
-offset_top = 7.0
-offset_right = 665.0
-offset_bottom = 60.0
-theme_override_constants/line_spacing = 1
-theme_override_fonts/font = ExtResource("13_jkdf5")
-theme_override_font_sizes/font_size = 20
-horizontal_alignment = 1
-justification_flags = 35
-script = ExtResource("11_d1ilt")
+[node name="GoalSound" type="AudioStreamPlayer2D" parent="UI/ScoreTracker" unique_id=232231908]
+position = Vector2(-635.23035, -22.069572)
+scale = Vector2(0.6980553, 0.583851)
+stream = ExtResource("14_wsu2k")
 
-[node name="Timer" type="Timer" parent="Time" unique_id=1653171778]
+[node name="ButtonSound" type="AudioStreamPlayer2D" parent="UI/ScoreTracker" unique_id=113657179]
+position = Vector2(-635.23035, -22.069572)
+scale = Vector2(0.69805527, 0.5838509)
+stream = ExtResource("9_wsu2k")
 
-[node name="UI" type="CanvasLayer" parent="." unique_id=1202376506]
-
-[connection signal="point_scored" from="GoalAreas/LeftGoal" to="ScoreTracker" method="_on_goal_point_scored"]
-[connection signal="point_scored" from="GoalAreas/LeftGoal" to="ScoreTracker/Player Score/PlayerScore" method="_on_goal_point_scored"]
-[connection signal="point_scored" from="GoalAreas/RightGoal" to="ScoreTracker" method="_on_right_goal_point_scored"]
-[connection signal="point_scored" from="GoalAreas/RightGoal" to="ScoreTracker" method="_on_goal_point_scored"]
-[connection signal="point_scored" from="GoalAreas/RightGoal" to="ScoreTracker/Computer Score/ComputerScore" method="_on_goal_point_scored"]
-[connection signal="timeout" from="Time/Timer" to="Time" method="_on_timer_timeout"]
+[connection signal="point_scored" from="GoalAreas/LeftGoal" to="UI/ScoreTracker" method="_on_goal_point_scored"]
+[connection signal="point_scored" from="GoalAreas/LeftGoal" to="UI/ScoreTracker/Player Score/PlayerScore" method="_on_goal_point_scored"]
+[connection signal="point_scored" from="GoalAreas/RightGoal" to="UI/ScoreTracker" method="_on_right_goal_point_scored"]
+[connection signal="point_scored" from="GoalAreas/RightGoal" to="UI/ScoreTracker" method="_on_goal_point_scored"]
+[connection signal="point_scored" from="GoalAreas/RightGoal" to="UI/ScoreTracker/Computer Score/ComputerScore" method="_on_goal_point_scored"]
+[connection signal="timeout" from="UI/Time/Timer" to="UI/Time" method="_on_timer_timeout"]

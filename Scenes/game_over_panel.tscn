@@ -1,0 +1,45 @@
+[gd_scene format=3 uid="uid://dor5h3cmuvup7"]
+
+[ext_resource type="FontFile" uid="uid://cssiv2d3ac2x8" path="res://Assets/simple-ping-pong-2Dgame-assets/fonts/Teko-SemiBold.ttf" id="1_d7ayl"]
+
+[node name="GameOverPanel" type="Control" unique_id=1575561428]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -95.633606
+offset_top = 0.11676407
+offset_right = 53.052185
+offset_bottom = 40.0
+pivot_offset = Vector2(73.9939, 19.267082)
+
+[node name="WinnerText" type="Label" parent="." unique_id=726670954]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -2.089
+anchor_top = 2.811
+anchor_right = 0.286
+anchor_bottom = 4.946
+offset_left = -2.8222046
+offset_top = -18.695625
+offset_right = -2.7349243
+offset_bottom = -16.846329
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(176.60803, 43.788834)
+theme_override_fonts/font = ExtResource("1_d7ayl")
+theme_override_font_sizes/font_size = 60
+text = "---------- WINS !"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PlayAgainButton" type="Button" parent="." unique_id=1793833035]
+layout_mode = 0
+offset_left = -256.18628
+offset_top = 190.3355
+offset_right = -17.774628
+offset_bottom = 279.78143
+scale = Vector2(0.65252715, 0.5374834)
+pivot_offset = Vector2(119.66696, -44.749573)
+theme_override_colors/font_disabled_color = Color(0.875, 0.875, 0.875, 0.5)
+theme_override_fonts/font = ExtResource("1_d7ayl")
+theme_override_font_sizes/font_size = 45
+text = "PLAY AGAIN?"
